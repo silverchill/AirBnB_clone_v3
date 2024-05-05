@@ -76,10 +76,14 @@ class DBStorage:
         self.__session.remove()
 
     def get(self, cls, id):
-        objs = self.all(cls)
-        for obj in objs:
-            if id == obj.get('id'):
-                return obj
+        """ A method to retrieve one object  """
+        if cls in classes.values():
+            datas = self.all(cls)
+            for data in datas.values():
+                if data.id == id:
+                    return data
+            return None
 
-    def count(self, cls):
+    def count(self, cls=None):
+        """ A method to count the number of objects in storage """
         return len(self.all(cls))
